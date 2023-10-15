@@ -13,11 +13,11 @@ import { Input } from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
 import { useStoreModal } from "@/hooks/useStoreModal";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import axios from "axios";
 import toast from "react-hot-toast";
+import { z } from "zod";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -39,8 +39,8 @@ export default function StoreModal() {
   const submitForm = async (values: storeForm) => {
     try {
       setLoading(true);
-      await axios.post("/api/stores", values).then(() => {
-        toast.success("Store created.");
+      await axios.post("/api/stores", values).then((res) => {
+        window.location.assign(`/${res.data.id}`);
       });
     } catch (error) {
       toast.error("Something went wrong.");
