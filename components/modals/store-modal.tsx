@@ -13,25 +13,37 @@ import { Input } from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
 import { useStoreModal } from "@/hooks/useStoreModal";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import axios from "axios";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
 });
 
+type storeForm = z.infer<typeof formSchema>;
+
 export default function StoreModal() {
   const storeModal = useStoreModal();
+  const [loading, setLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<storeForm>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
     },
   });
 
-  const submitForm = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const submitForm = async (values: storeForm) => {
+    try {
+      setLoading(true);
+      await axios.post("/api/stores", values).then((data) => console.log(data));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,17 +64,27 @@ export default function StoreModal() {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Store Name" {...field} />
+                      <Input
+                        disabled={loading}
+                        placeholder="Store Name"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <div className="flex items-center justify-end pt-6 gap-2">
-                <Button variant="outline" onClick={storeModal.onClose}>
+                <Button
+                  disabled={loading}
+                  variant="outline"
+                  onClick={storeModal.onClose}
+                >
                   Cancel
                 </Button>
-                <Button type="submit">Continue</Button>
+                <Button disabled={loading} type="submit">
+                  Continue
+                </Button>
               </div>
             </form>
           </Form>
