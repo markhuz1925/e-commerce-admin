@@ -17,6 +17,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -38,9 +39,11 @@ export default function StoreModal() {
   const submitForm = async (values: storeForm) => {
     try {
       setLoading(true);
-      await axios.post("/api/stores", values).then((data) => console.log(data));
+      await axios.post("/api/stores", values).then(() => {
+        toast.success("Store created.");
+      });
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong.");
     } finally {
       setLoading(false);
     }
