@@ -12,16 +12,13 @@ import {
 import { Input } from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
 import { useStoreModal } from "@/hooks/useStoreModal";
+import { formSchema } from "@/lib/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
-
-const formSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-});
 
 type storeForm = z.infer<typeof formSchema>;
 
