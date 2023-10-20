@@ -12,7 +12,7 @@ export async function PATCH(
 
     const { name } = body;
 
-    if (!userId) return NextResponse.json("Unauthorized", { status: 401 });
+    if (!userId) return NextResponse.json("Unauthenticated", { status: 401 });
 
     if (!name) return NextResponse.json("Name is required", { status: 400 });
 
@@ -43,7 +43,7 @@ export async function DELETE(
   try {
     const { userId } = auth();
 
-    if (!userId) return NextResponse.json("Unauthorized", { status: 401 });
+    if (!userId) return NextResponse.json("Unauthenticated", { status: 401 });
 
     if (!params.storeId)
       return NextResponse.json("Store ID is required", { status: 400 });
