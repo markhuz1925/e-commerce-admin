@@ -73,14 +73,14 @@ export default function BillboardForm({
     }
   };
 
-  const deleteStore = async () => {
+  const deleteBillboard = async () => {
     try {
       setLoading(true);
       await axios.delete(
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
       router.refresh();
-      router.push("/");
+      router.push(`/${params.storeId}/billboards`);
       toast.success("Billboard successfully deleted");
     } catch (error) {
       toast.error(
@@ -97,7 +97,7 @@ export default function BillboardForm({
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={deleteStore}
+        onConfirm={deleteBillboard}
         loading={loading}
       />
       <div className="flex items-center justify-between">
