@@ -18,3 +18,8 @@ export const sizeFormSchema = z.object({
   value: z.string().min(1),
   name: z.string().min(1),
 });
+
+export const colorFormSchema = z.object({
+  value: z.string().min(1),
+  name: z.string().min(1),
+});
