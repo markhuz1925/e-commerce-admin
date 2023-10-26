@@ -15,6 +15,7 @@ import {
 import Heading from "@/components/ui/heading";
 import ImageUpload from "@/components/ui/image-upload";
 import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectTrigger,
@@ -216,10 +217,10 @@ export default function ProductForm({
                         />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent className="max-h-[300px]">
                       {categories.map((category) => (
                         <SelectItem key={category.id} value={category.id}>
-                          {category.name}
+                          <ScrollArea>{category.name}</ScrollArea>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -248,10 +249,10 @@ export default function ProductForm({
                         />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent className="max-h-[300px]">
                       {colors.map((color) => (
                         <SelectItem key={color.id} value={color.id}>
-                          {color.name}
+                          <ScrollArea>{color.name}</ScrollArea>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -280,10 +281,10 @@ export default function ProductForm({
                         />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent className="max-h-[300px]">
                       {sizes.map((size) => (
                         <SelectItem key={size.id} value={size.id}>
-                          {size.name}
+                          <ScrollArea>{size.name}</ScrollArea>
                         </SelectItem>
                       ))}
                     </SelectContent>
